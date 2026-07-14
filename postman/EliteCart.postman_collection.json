@@ -1,0 +1,313 @@
+{
+  "info": {
+    "name": "EliteCart API",
+    "description": "Full API collection for EliteCart — a Spring Boot 3 e-commerce backend. Set {{baseUrl}} and run Auth > Login first to auto-populate {{accessToken}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "productId", "value": "1" },
+    { "key": "productSlug", "value": "" },
+    { "key": "categoryId", "value": "1" },
+    { "key": "orderId", "value": "1" },
+    { "key": "addressId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane.doe@example.com\",\n  \"password\": \"Password123\",\n  \"phoneNumber\": \"+15551234567\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json().data;",
+                  "if (data) {",
+                  "  pm.collectionVariables.set('accessToken', data.accessToken);",
+                  "  pm.collectionVariables.set('refreshToken', data.refreshToken);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@elitecart.com\",\n  \"password\": \"Admin@123\",\n  \"rememberMe\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/refresh-token",
+            "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}" }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/auth/logout"
+          }
+        },
+        {
+          "name": "Verify Email",
+          "request": { "method": "POST", "url": "{{baseUrl}}/auth/verify-email?token=REPLACE_TOKEN" }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/forgot-password",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"jane.doe@example.com\"\n}" }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/reset-password",
+            "body": { "mode": "raw", "raw": "{\n  \"token\": \"REPLACE_TOKEN\",\n  \"newPassword\": \"NewPassword123\"\n}" }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/auth/change-password",
+            "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"Admin@123\",\n  \"newPassword\": \"NewAdminPass123\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products (public)",
+      "item": [
+        {
+          "name": "Search / Filter / Sort / Paginate",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products?page=0&size=12&sort=createdAt,desc&keyword=&categoryId=&minPrice=&maxPrice=&featured=&inStock=&minRating=",
+              "host": ["{{baseUrl}}"], "path": ["products"],
+              "query": [
+                { "key": "page", "value": "0" }, { "key": "size", "value": "12" },
+                { "key": "sort", "value": "createdAt,desc" }, { "key": "keyword", "value": "" },
+                { "key": "categoryId", "value": "" }, { "key": "minPrice", "value": "" },
+                { "key": "maxPrice", "value": "" }, { "key": "featured", "value": "" },
+                { "key": "inStock", "value": "" }, { "key": "minRating", "value": "" }
+              ]
+            }
+          }
+        },
+        { "name": "Get by ID", "request": { "method": "GET", "url": "{{baseUrl}}/products/{{productId}}" } },
+        { "name": "Get by Slug", "request": { "method": "GET", "url": "{{baseUrl}}/products/slug/{{productSlug}}" } },
+        { "name": "Featured", "request": { "method": "GET", "url": "{{baseUrl}}/products/featured" } },
+        { "name": "Latest", "request": { "method": "GET", "url": "{{baseUrl}}/products/latest" } },
+        { "name": "Best Sellers", "request": { "method": "GET", "url": "{{baseUrl}}/products/best-sellers" } }
+      ]
+    },
+    {
+      "name": "Categories (public)",
+      "item": [
+        { "name": "Get All (flat)", "request": { "method": "GET", "url": "{{baseUrl}}/categories" } },
+        { "name": "Get Tree", "request": { "method": "GET", "url": "{{baseUrl}}/categories/tree" } },
+        { "name": "Get by ID", "request": { "method": "GET", "url": "{{baseUrl}}/categories/{{categoryId}}" } },
+        { "name": "Get by Slug", "request": { "method": "GET", "url": "{{baseUrl}}/categories/slug/electronics" } }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        { "name": "Get Cart", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/cart" } },
+        {
+          "name": "Add Item",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/cart/items",
+            "body": { "mode": "raw", "raw": "{\n  \"productId\": {{productId}},\n  \"quantity\": 1\n}" }
+          }
+        },
+        {
+          "name": "Update Item Quantity",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/cart/items/1",
+            "body": { "mode": "raw", "raw": "{\n  \"quantity\": 2\n}" }
+          }
+        },
+        { "name": "Remove Item", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/cart/items/1" } },
+        { "name": "Clear Cart", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/cart" } }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "item": [
+        { "name": "Get Wishlist", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/wishlist" } },
+        {
+          "name": "Add Item",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/wishlist/items",
+            "body": { "mode": "raw", "raw": "{\n  \"productId\": {{productId}}\n}" }
+          }
+        },
+        { "name": "Remove Item", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/wishlist/items/1" } },
+        { "name": "Move to Cart", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/wishlist/items/1/move-to-cart" } }
+      ]
+    },
+    {
+      "name": "Addresses",
+      "item": [
+        { "name": "Get All", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/addresses" } },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/addresses",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"phoneNumber\": \"+15551234567\",\n  \"addressLine1\": \"123 Market St\",\n  \"city\": \"San Francisco\",\n  \"state\": \"CA\",\n  \"postalCode\": \"94103\",\n  \"country\": \"USA\",\n  \"addressType\": \"SHIPPING\",\n  \"isDefault\": true\n}"
+            }
+          }
+        },
+        { "name": "Update", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/addresses/{{addressId}}", "body": { "mode": "raw", "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"phoneNumber\": \"+15551234567\",\n  \"addressLine1\": \"456 New St\",\n  \"city\": \"San Francisco\",\n  \"state\": \"CA\",\n  \"postalCode\": \"94103\",\n  \"country\": \"USA\",\n  \"addressType\": \"SHIPPING\",\n  \"isDefault\": true\n}" } } },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/addresses/{{addressId}}" } }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Checkout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/orders/checkout",
+            "body": { "mode": "raw", "raw": "{\n  \"shippingAddressId\": {{addressId}},\n  \"billingAddressId\": {{addressId}},\n  \"paymentMethod\": \"CARD\"\n}" }
+          }
+        },
+        { "name": "My Orders (paginated)", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/orders?page=0&size=10" } },
+        { "name": "Get by ID", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/orders/{{orderId}}" } },
+        { "name": "Get by Order Number", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/orders/number/ORD-20260713-XXXXXXXX" } },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/orders/{{orderId}}/cancel",
+            "body": { "mode": "raw", "raw": "{\n  \"reason\": \"Changed my mind\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        { "name": "Get Reviews for Product", "request": { "method": "GET", "url": "{{baseUrl}}/reviews/product/{{productId}}?page=0&size=10" } },
+        {
+          "name": "Add Review",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/reviews/product/{{productId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Excellent product, highly recommend!\"\n}" }
+          }
+        },
+        { "name": "Delete Review", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/reviews/1" } }
+      ]
+    },
+    {
+      "name": "Admin — Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/admin/products",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Wireless Headphones\",\n  \"sku\": \"SKU-1001\",\n  \"description\": \"Noise-cancelling over-ear headphones\",\n  \"price\": 199.99,\n  \"discountPrice\": 149.99,\n  \"stockQuantity\": 50,\n  \"featured\": true,\n  \"active\": true,\n  \"categoryId\": {{categoryId}},\n  \"images\": [\n    { \"imageUrl\": \"https://example.com/headphones.jpg\", \"primary\": true, \"displayOrder\": 0 }\n  ]\n}"
+            }
+          }
+        },
+        { "name": "Update Product", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/products/{{productId}}", "body": { "mode": "raw", "raw": "{\n  \"name\": \"Wireless Headphones V2\",\n  \"sku\": \"SKU-1001\",\n  \"price\": 179.99,\n  \"stockQuantity\": 40,\n  \"categoryId\": {{categoryId}}\n}" } } },
+        { "name": "Delete Product", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/products/{{productId}}" } }
+      ]
+    },
+    {
+      "name": "Admin — Categories",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/admin/categories",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Gadgets and devices\",\n  \"active\": true\n}" }
+          }
+        },
+        { "name": "Update Category", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/categories/{{categoryId}}", "body": { "mode": "raw", "raw": "{\n  \"name\": \"Consumer Electronics\",\n  \"active\": true\n}" } } },
+        { "name": "Delete Category", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/categories/{{categoryId}}" } }
+      ]
+    },
+    {
+      "name": "Admin — Orders & Payments",
+      "item": [
+        { "name": "Get All Orders", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/orders?page=0&size=20" } },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/admin/orders/{{orderId}}/status",
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"SHIPPED\"\n}" }
+          }
+        },
+        { "name": "Refund Payment", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/payments/orders/{{orderId}}/refund" } }
+      ]
+    },
+    {
+      "name": "Admin — Analytics & Customers",
+      "item": [
+        { "name": "Dashboard Stats", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/analytics/dashboard" } },
+        { "name": "Export Orders CSV", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/analytics/orders/export" } },
+        { "name": "List Customers", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }], "url": "{{baseUrl}}/admin/customers?page=0&size=20" } }
+      ]
+    }
+  ]
+}

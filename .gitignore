@@ -1,0 +1,13 @@
+.vscode/
+.idea/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
+build.log
+*.log
+.env
+.env.local
+node_modules/
+target/
+dist/

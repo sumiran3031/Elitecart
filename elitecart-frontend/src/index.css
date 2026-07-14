@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+@layer components {
+  .glass-nav {
+    @apply bg-white/70 backdrop-blur-xl border-b border-ink/5;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-ink/5 transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    @apply shadow-card-hover -translate-y-1;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-gradient text-white font-medium
+      px-6 py-3 shadow-card transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]
+      disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink font-medium
+      px-6 py-3 border border-ink/10 shadow-sm transition-all duration-200 hover:border-ink/20 hover:-translate-y-0.5
+      disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-ink-soft font-medium
+      px-4 py-2 transition-colors duration-200 hover:bg-ink/5 hover:text-ink;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-faint
+      focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-colors duration-200 outline-none;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-ink-soft mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-ink/5 rounded-xl;
+  }
+}
