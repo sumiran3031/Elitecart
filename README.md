@@ -55,54 +55,6 @@ elitecart/
 └── README.md                                 # You are here
 ```
 
-## Quick start
-
-### Option 1 — Docker (fastest)
-
-```bash
-git clone <your-repo-url>
-cd elitecart
-docker-compose up --build
-```
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:8080/api
-- Swagger UI: http://localhost:8080/api/swagger-ui.html
-- Default admin login: `admin@elitecart.com` / `Admin@123` (change immediately in any real deployment)
-
-### Option 2 — Run locally without Docker
-
-```bash
-# Backend
-cd elitecart-backend
-cp .env.example .env    # edit DB credentials, JWT secret, mail creds
-mvn spring-boot:run
-
-# Frontend (separate terminal)
-cd elitecart-frontend
-cp .env.example .env
-npm install
-npm run dev
-```
-
-See `elitecart-backend/README.md` and `elitecart-frontend/README.md` for
-full per-service detail, and `docs/DEPLOYMENT.md` when you're ready to put
-this online.
-
-## Testing
-
-```bash
-cd elitecart-backend
-mvn test
-```
-JUnit 5 + Mockito unit tests cover the core guard rails: duplicate-email
-registration, duplicate SKU, insufficient stock, duplicate reviews, and more
-— see `src/test/java` for the full list. CI runs these on every push via
-`.github/workflows/ci-cd.yml`.
-
-## API documentation
-
-- **Interactive**: Swagger UI at `/api/swagger-ui.html` once the backend is running (JWT bearer auth supported directly in the UI)
-- **Postman**: import `postman/EliteCart.postman_collection.json` — run **Auth → Login** first to auto-populate the `{{accessToken}}` variable used by every other request
 
 ## Diagrams
 
