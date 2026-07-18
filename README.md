@@ -28,14 +28,14 @@ detailed breakdown.
 
 ## Tech stack
 
-**Backend** — Java 21, Spring Boot 3.3, Spring Security 6, JWT (jjwt),
+**Backend** - Java 21, Spring Boot 3.3, Spring Security 6, JWT (jjwt),
 Spring Data JPA / Hibernate, MySQL 8, Lombok, MapStruct, springdoc-openapi,
 Jakarta Validation, Spring Mail, JUnit 5 + Mockito, Docker
 
-**Frontend** — React 19, Vite 6, React Router 6, Redux Toolkit, Axios, React
+**Frontend** - React 19, Vite 6, React Router 6, Redux Toolkit, Axios, React
 Hook Form, Framer Motion, Recharts, React Icons, Tailwind CSS
 
-**DevOps** — Docker Compose, GitHub Actions, Railway / Render
+**DevOps** - Docker Compose, GitHub Actions, Railway / Render
 
 ## Folder structure
 
@@ -58,8 +58,8 @@ elitecart/
 
 ## Diagrams
 
-- [`docs/ER-DIAGRAM.md`](docs/ER-DIAGRAM.md) — full database schema (15 tables) with relationship notes
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system architecture, plus sequence diagrams for the auth and checkout flows
+- [`docs/ER-DIAGRAM.md`](docs/ER-DIAGRAM.md) - full database schema (15 tables) with relationship notes
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) - system architecture, plus sequence diagrams for the auth and checkout flows
 
 ## Author
 
@@ -70,7 +70,7 @@ is wired to a real, working API.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
 
 ## Future enhancements
 
