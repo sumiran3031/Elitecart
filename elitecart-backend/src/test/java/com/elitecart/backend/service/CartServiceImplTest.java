@@ -43,9 +43,11 @@ class CartServiceImplTest {
     @Test
     void addItem_shouldThrowBadRequestException_whenRequestedQuantityExceedsStock() {
         Long userId = 1L;
-        Cart cart = Cart.builder().id(10L).build();
-        Product product = Product.builder().id(5L).name("Limited Edition Sneakers")
-                .price(new BigDecimal("199.99")).stockQuantity(2).build();
+        Cart cart = Cart.builder().build();
+        cart.setId(10L);
+        Product product = Product.builder().name("Limited Edition Sneakers")
+        .price(new BigDecimal("199.99")).stockQuantity(2).build();
+        product.setId(5L);
 
         when(cartRepository.findByUserId(userId)).thenReturn(Optional.of(cart));
         when(productRepository.findById(5L)).thenReturn(Optional.of(product));

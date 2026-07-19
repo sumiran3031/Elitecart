@@ -77,7 +77,9 @@ class ProductServiceImplTest {
     @Test
     void create_shouldSaveProduct_whenSkuUniqueAndCategoryExists() {
         when(productRepository.existsBySku("SKU-001")).thenReturn(false);
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(Category.builder().id(1L).name("Electronics").build()));
+        Category category = Category.builder().name("Electronics").build();
+        category.setId(1L);
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
         when(productRepository.findBySlug(any())).thenReturn(Optional.empty());
         when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
