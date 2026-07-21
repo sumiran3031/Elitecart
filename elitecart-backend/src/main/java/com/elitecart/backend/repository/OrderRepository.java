@@ -20,11 +20,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT COALESCE(SUM(o.grandTotal), 0) FROM Order o WHERE o.status <> com.elitecart.backend.entity.OrderStatus.CANCELLED")
     BigDecimal sumRevenue();
 
-    @Query(value = "SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, "
-            + "COALESCE(SUM(grand_total), 0) AS revenue, COUNT(*) AS orderCount "
-            + "FROM orders WHERE status <> 'CANCELLED' AND created_at >= :from "
-            + "GROUP BY month ORDER BY month", nativeQuery = true)
-    List<Object[]> findMonthlySales(@Param("from") LocalDateTime from);
+    @Query(value = "SELECT to_char(created_at, 'YYYY-MM') AS month, "
+        + "COALESCE(SUM(grand_total), 0) AS revenue, COUNT(*) AS orderCount "
+        + "FROM orders WHERE status <> 'CANCELLED' AND created_at >= :from "
+        + "GROUP BY month ORDER BY month", nativeQuery = true)
+List<Object[]> findMonthlySales(@Param("from") LocalDateTime from);
 
     @Query(value = "SELECT c.name AS categoryName, COALESCE(SUM(oi.line_total), 0) AS revenue "
             + "FROM order_items oi "

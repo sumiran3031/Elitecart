@@ -1,19 +1,18 @@
-version: "3.9"
-
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: elitecart-mysql
+  postgres:
+    image: postgres:16-alpine
+    container_name: elitecart-postgres
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
-      MYSQL_DATABASE: elitecart_db
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: elitecart_db
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
-      - elitecart-mysql-data:/var/lib/mysql
+      - elitecart-postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-root}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -27,13 +26,13 @@ services:
     container_name: elitecart-backend
     restart: unless-stopped
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      DB_URL: jdbc:mysql://mysql:3306/elitecart_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      DB_USERNAME: root
-      DB_PASSWORD: ${DB_PASSWORD:-root}
+      DB_URL: jdbc:postgresql://postgres:5432/elitecart_db
+      DB_USERNAME: ${DB_USERNAME:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
       JWT_SECRET: ${JWT_SECRET}
       MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
       MAIL_PORT: ${MAIL_PORT:-587}
@@ -68,4 +67,4 @@ networks:
     driver: bridge
 
 volumes:
-  elitecart-mysql-data:
+  elitecart-postgres-data:
