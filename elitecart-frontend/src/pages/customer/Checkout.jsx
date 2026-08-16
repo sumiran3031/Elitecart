@@ -9,10 +9,6 @@ import { orderApi } from '../../api/orderApi.js'
 import { fetchCart } from '../../features/cart/cartSlice.js'
 
 const paymentMethods = [
-  { value: 'CARD', label: 'Credit / Debit Card' },
-  { value: 'UPI', label: 'UPI' },
-  { value: 'NET_BANKING', label: 'Net Banking' },
-  { value: 'WALLET', label: 'Wallet' },
   { value: 'COD', label: 'Cash on Delivery' },
 ]
 
@@ -24,7 +20,7 @@ export default function Checkout() {
   const [shippingId, setShippingId] = useState(null)
   const [billingId, setBillingId] = useState(null)
   const [sameAsShipping, setSameAsShipping] = useState(true)
-  const [paymentMethod, setPaymentMethod] = useState('CARD')
+  const [paymentMethod, setPaymentMethod] = useState('COD')
   const [showAddForm, setShowAddForm] = useState(false)
   const [placing, setPlacing] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
@@ -161,7 +157,7 @@ export default function Checkout() {
                 </button>
               ))}
             </div>
-            <p className="mt-3 text-xs text-ink-faint">This is a mock payment gateway for demo purposes — no real charges are made.</p>
+            <p className="mt-3 text-xs text-ink-faint">Pay with cash when your order is delivered.</p>
           </section>
         </div>
 
@@ -174,16 +170,16 @@ export default function Checkout() {
             </div>
           ))}
           <div className="border-t border-ink/5 pt-3 flex justify-between text-sm text-ink-soft">
-            <span>Subtotal</span><span className="font-mono">${cart.subtotal.toFixed(2)}</span>
+            <span>Subtotal</span><span className="font-mono">₹{cart.subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm text-ink-soft">
-            <span>Tax</span><span className="font-mono">${cart.tax.toFixed(2)}</span>
+            <span>Tax</span><span className="font-mono">₹{cart.tax.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm text-ink-soft">
-            <span>Shipping</span><span className="font-mono">{cart.shipping === 0 ? 'Free' : `$${cart.shipping.toFixed(2)}`}</span>
+            <span>Shipping</span><span className="font-mono">{cart.shipping === 0 ? 'Free' : `₹${cart.shipping.toFixed(2)}`}</span>
           </div>
           <div className="border-t border-ink/5 pt-3 flex justify-between font-semibold text-ink">
-            <span>Total</span><span className="font-mono">${cart.grandTotal.toFixed(2)}</span>
+            <span>Total</span><span className="font-mono">₹{cart.grandTotal.toFixed(2)}</span>
           </div>
           <button onClick={placeOrder} disabled={placing} className="btn-primary w-full mt-2">
             {placing ? 'Placing order…' : 'Place order'}

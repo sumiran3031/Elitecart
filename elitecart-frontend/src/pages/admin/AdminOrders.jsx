@@ -69,7 +69,7 @@ export default function AdminOrders() {
               <tr key={order.id} className="border-b border-ink/5 last:border-0">
                 <td className="p-4 font-medium text-ink">{order.orderNumber}</td>
                 <td className="p-4 text-ink-faint">{new Date(order.createdAt).toLocaleDateString()}</td>
-                <td className="p-4 font-mono">${order.grandTotal.toFixed(2)}</td>
+                <td className="p-4 font-mono">₹{order.grandTotal.toFixed(2)}</td>
                 <td className="p-4">
                   <span className="badge bg-ink/5 text-ink-soft">{order.payment?.status || '—'}</span>
                 </td>

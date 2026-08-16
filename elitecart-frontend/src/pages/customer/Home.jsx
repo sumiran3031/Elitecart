@@ -7,7 +7,7 @@ import ProductCard from '../../components/product/ProductCard.jsx'
 import { ProductGridSkeleton } from '../../components/common/LoadingSkeleton.jsx'
 
 const perks = [
-  { icon: HiOutlineTruck, label: 'Free shipping over $100' },
+  { icon: HiOutlineTruck, label: 'Free shipping over ₹100' },
   { icon: HiOutlineShieldCheck, label: 'Secure checkout' },
   { icon: HiOutlineRefresh, label: '30-day easy returns' },
 ]

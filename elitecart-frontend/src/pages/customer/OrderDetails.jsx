@@ -97,15 +97,15 @@ export default function OrderDetails() {
             {order.items.map((item) => (
               <div key={item.id} className="flex justify-between text-sm">
                 <span className="text-ink-soft">{item.productName} × {item.quantity}</span>
-                <span className="font-mono text-ink">${item.lineTotal.toFixed(2)}</span>
+                <span className="font-mono text-ink">₹{item.lineTotal.toFixed(2)}</span>
               </div>
             ))}
           </div>
           <div className="mt-4 space-y-2 border-t border-ink/5 pt-4 text-sm">
-            <div className="flex justify-between text-ink-soft"><span>Subtotal</span><span className="font-mono">${order.subtotal.toFixed(2)}</span></div>
-            <div className="flex justify-between text-ink-soft"><span>Tax</span><span className="font-mono">${order.tax.toFixed(2)}</span></div>
-            <div className="flex justify-between text-ink-soft"><span>Shipping</span><span className="font-mono">${order.shippingFee.toFixed(2)}</span></div>
-            <div className="flex justify-between font-semibold text-ink"><span>Total</span><span className="font-mono">${order.grandTotal.toFixed(2)}</span></div>
+            <div className="flex justify-between text-ink-soft"><span>Subtotal</span><span className="font-mono">₹{order.subtotal.toFixed(2)}</span></div>
+            <div className="flex justify-between text-ink-soft"><span>Tax</span><span className="font-mono">₹{order.tax.toFixed(2)}</span></div>
+            <div className="flex justify-between text-ink-soft"><span>Shipping</span><span className="font-mono">₹{order.shippingFee.toFixed(2)}</span></div>
+            <div className="flex justify-between font-semibold text-ink"><span>Total</span><span className="font-mono">₹{order.grandTotal.toFixed(2)}</span></div>
           </div>
 
           {canCancel && (

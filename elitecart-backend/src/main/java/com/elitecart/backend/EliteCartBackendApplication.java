@@ -5,10 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * EliteCart - Professional E-Commerce Platform.
- * Entry point of the Spring Boot application.
- */
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling

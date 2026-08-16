@@ -59,7 +59,7 @@ export default function MyOrders() {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <span className="font-mono text-sm font-semibold text-ink">${order.grandTotal.toFixed(2)}</span>
+              <span className="font-mono text-sm font-semibold text-ink">₹{order.grandTotal.toFixed(2)}</span>
               <span className={`badge ${statusColors[order.status] || 'bg-ink/5 text-ink-soft'}`}>{order.status}</span>
             </div>
           </Link>

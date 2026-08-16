@@ -45,7 +45,7 @@ export default function Wishlist() {
             <div className="flex flex-1 flex-col justify-between">
               <div>
                 <p className="font-medium text-ink">{item.productName}</p>
-                <p className="mt-1 font-mono text-sm text-ink-faint">${item.effectivePrice.toFixed(2)}</p>
+                <p className="mt-1 font-mono text-sm text-ink-faint">₹{item.effectivePrice.toFixed(2)}</p>
                 {!item.inStock && <p className="mt-1 text-xs text-accent-rose">Out of stock</p>}
               </div>
               <div className="flex items-center gap-2">

@@ -63,7 +63,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard icon={HiOutlineCurrencyDollar} label="Total revenue" value={`$${stats.totalRevenue.toFixed(2)}`} />
+        <StatCard icon={HiOutlineCurrencyDollar} label="Total revenue" value={`₹${stats.totalRevenue.toFixed(2)}`} />
         <StatCard icon={HiOutlineShoppingBag} label="Total orders" value={stats.totalOrders} />
         <StatCard icon={HiOutlineCube} label="Total products" value={stats.totalProducts} />
         <StatCard icon={HiOutlineUsers} label="Total customers" value={stats.totalCustomers} />
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#15151A0D" />
                 <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#8A8A97' }} />
                 <YAxis tick={{ fontSize: 12, fill: '#8A8A97' }} />
-                <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+                <Tooltip formatter={(value) => `₹${Number(value).toFixed(2)}`} />
                 <Line type="monotone" dataKey="revenue" stroke="#6366F1" strokeWidth={2.5} dot={{ r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
                     <Cell key={entry.categoryName} fill={COLORS[idx % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `$${Number(value).toFixed(2)}`} />
+                <Tooltip formatter={(value) => `₹${Number(value).toFixed(2)}`} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
               <div key={order.id} className="flex items-center justify-between text-sm">
                 <span className="text-ink-soft">{order.orderNumber}</span>
                 <span className="badge bg-ink/5 text-ink-soft">{order.status}</span>
-                <span className="font-mono font-medium text-ink">${order.grandTotal.toFixed(2)}</span>
+                <span className="font-mono font-medium text-ink">₹{order.grandTotal.toFixed(2)}</span>
               </div>
             ))}
           </div>

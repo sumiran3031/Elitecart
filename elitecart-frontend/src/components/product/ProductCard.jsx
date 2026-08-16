@@ -67,9 +67,9 @@ export default function ProductCard({ product }) {
           <p className="truncate text-sm font-medium text-ink">{product.name}</p>
           <StarRating rating={product.rating} reviewCount={product.reviewCount} size="h-3.5 w-3.5" />
           <div className="flex items-baseline gap-2 font-mono">
-            <span className="text-sm font-semibold text-ink">${product.effectivePrice?.toFixed(2)}</span>
+            <span className="text-sm font-semibold text-ink">₹{product.effectivePrice?.toFixed(2)}</span>
             {hasDiscount && (
-              <span className="text-xs text-ink-faint line-through">${product.price?.toFixed(2)}</span>
+              <span className="text-xs text-ink-faint line-through">₹{product.price?.toFixed(2)}</span>
             )}
           </div>
         </div>

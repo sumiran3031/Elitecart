@@ -102,8 +102,8 @@ export default function ProductDetails() {
           </div>
 
           <div className="mt-5 flex items-baseline gap-3 font-mono">
-            <span className="text-3xl font-bold text-ink">${product.effectivePrice?.toFixed(2)}</span>
-            {hasDiscount && <span className="text-lg text-ink-faint line-through">${product.price?.toFixed(2)}</span>}
+            <span className="text-3xl font-bold text-ink">₹{product.effectivePrice?.toFixed(2)}</span>
+            {hasDiscount && <span className="text-lg text-ink-faint line-through">₹{product.price?.toFixed(2)}</span>}
           </div>
 
           <p className="mt-5 text-sm leading-relaxed text-ink-soft">{product.description}</p>

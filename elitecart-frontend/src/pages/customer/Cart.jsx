@@ -48,7 +48,7 @@ export default function Cart() {
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="font-medium text-ink">{item.productName}</p>
-                    <p className="mt-1 font-mono text-sm text-ink-faint">${item.unitPrice.toFixed(2)} each</p>
+                    <p className="mt-1 font-mono text-sm text-ink-faint">₹{item.unitPrice.toFixed(2)} each</p>
                   </div>
                   <button
                     onClick={() => dispatch(removeCartItem(item.id))}
@@ -76,7 +76,7 @@ export default function Cart() {
                       <HiOutlinePlus className="h-3.5 w-3.5" />
                     </button>
                   </div>
-                  <p className="font-mono text-sm font-semibold text-ink">${item.lineTotal.toFixed(2)}</p>
+                  <p className="font-mono text-sm font-semibold text-ink">₹{item.lineTotal.toFixed(2)}</p>
                 </div>
               </div>
             </div>
@@ -86,14 +86,14 @@ export default function Cart() {
         <div className="card h-fit space-y-3 p-6">
           <h2 className="font-display font-semibold text-ink">Order summary</h2>
           <div className="flex justify-between text-sm text-ink-soft">
-            <span>Subtotal</span><span className="font-mono">${cart.subtotal.toFixed(2)}</span>
+            <span>Subtotal</span><span className="font-mono">₹{cart.subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm text-ink-soft">
-            <span>Tax</span><span className="font-mono">${cart.tax.toFixed(2)}</span>
+            <span>Tax</span><span className="font-mono">₹{cart.tax.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm text-ink-soft">
             <span>Shipping</span>
-            <span className="font-mono">{cart.shipping === 0 ? 'Free' : `$${cart.shipping.toFixed(2)}`}</span>
+            <span>{cart.shipping === 0 ? 'Free' : `₹${cart.shipping.toFixed(2)}`}</span>
           </div>
           <div className="border-t border-ink/5 pt-3 flex justify-between font-semibold text-ink">
             <span>Total</span><span className="font-mono">${cart.grandTotal.toFixed(2)}</span>

@@ -144,7 +144,7 @@ export default function AdminProducts() {
               <tr key={p.id} className="border-b border-ink/5 last:border-0">
                 <td className="p-4 font-medium text-ink">{p.name}</td>
                 <td className="p-4 font-mono text-xs text-ink-faint">{p.sku}</td>
-                <td className="p-4 font-mono">${p.effectivePrice?.toFixed(2)}</td>
+                <td className="p-4 font-mono">₹{p.effectivePrice?.toFixed(2)}</td>
                 <td className="p-4">{p.stockQuantity}</td>
                 <td className="p-4">
                   <span className={`badge ${p.active ? 'bg-accent-emerald/10 text-accent-emerald' : 'bg-ink/5 text-ink-faint'}`}>
